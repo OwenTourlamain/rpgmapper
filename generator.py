@@ -1,4 +1,5 @@
-from datastructures import point, cell, cell_array
+from datastructures import cell_array
+
 
 class generator:
 

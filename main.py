@@ -20,7 +20,7 @@ class Example(Gtk.Window):
 
         self.init_ui()
 
-        self.generator = generator(100, 100)
+        self.generator = generator(10, 10)
 
     def init_ui(self):
 
@@ -35,16 +35,21 @@ class Example(Gtk.Window):
         self.show_all()
 
     def on_draw(self, wid, cr):
-        cr.set_source_rgb(0, 0, 0)
-        cr.set_line_width(0.5)
+
+        dotxsep = self.get_size()[0] / self.generator.xsize
+        dotysep = self.get_size()[1] / self.generator.ysize
 
         for row in self.generator.cells.cells:
             for cell in row:
-                print(cell.center.x, end=',')
-                print(cell.center.y)
 
-                cr.arc(cell.center.x*10, cell.center.y*10, 0.5, 0, 2*math.pi)
-                cr.set_line_width(0.04)
+                cr.set_source_rgb(cell.r, 0, 0)
+                cr.arc(cell.NW.x*dotxsep, cell.NW.y*dotysep, 1, 0, 2*math.pi)
+                cr.fill()
+                cr.arc(cell.NE.x*dotxsep, cell.NE.y*dotysep, 1, 0, 2*math.pi)
+                cr.fill()
+                cr.arc(cell.SW.x*dotxsep, cell.SW.y*dotysep, 1, 0, 2*math.pi)
+                cr.fill()
+                cr.arc(cell.SE.x*dotxsep, cell.SE.y*dotysep, 1, 0, 2*math.pi)
                 cr.fill()
 
 

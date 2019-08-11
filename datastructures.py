@@ -1,3 +1,6 @@
+import random
+
+
 class point:
 
     def __init__(self, x, y):
@@ -6,6 +9,9 @@ class point:
 
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
+
+    def __add__(self, other):
+        return point(self.x + other.x, self.y + other.y)
 
 
 class cell:
@@ -17,6 +23,9 @@ class cell:
         self.SW = SW
         self.SE = SE
         self.index = index
+        self.r = random.randint(0, 255)
+        self.g = random.randint(0, 255)
+        self.b = random.randint(0, 255)
 
         self.center = point(
             ((self.NW.x + self.NE.x + self.SW.x + self.SE.x) / 4.0),
@@ -36,15 +45,16 @@ class cell_array:
     def __init__(self, xsize, ysize):
         self.xsize = xsize
         self.ysize = ysize
+        jitter_mag = 0.4
 
         self.cells = [[0 for y in range(self.ysize)] for x in range(self.xsize)]
 
         for x in range(self.xsize):
             for y in range(self.ysize):
-                NW = point(x, y)
-                NE = point(x+1, y)
-                SW = point(x, y+1)
-                SE = point(x+1, y+1)
+                NW = point(x, y) + self.point_jitter(jitter_mag)
+                NE = point(x+1, y) + self.point_jitter(jitter_mag)
+                SW = point(x, y+1) + self.point_jitter(jitter_mag)
+                SE = point(x+1, y+1) + self.point_jitter(jitter_mag)
                 self.cells[x][y] = cell(NW, NE, SW, SE, (x, y))
 
     def __str__(self):
@@ -54,3 +64,8 @@ class cell_array:
                 result += str(self.cells[x][y])
             result += '\n'
         return result
+
+    def point_jitter(self, magnitude):
+        x = random.uniform(magnitude * -1, magnitude)
+        y = random.uniform(magnitude * -1, magnitude)
+        return point(x, y)
