@@ -4,7 +4,7 @@ import noise
 import numpy as np
 import random
 from gi.repository import Gtk
-from generator import generator
+from map import map
 import cairo
 import math
 
@@ -20,7 +20,8 @@ class Example(Gtk.Window):
 
         self.init_ui()
 
-        self.generator = generator(10, 10)
+        self.map = map(100, 100)
+        self.map.generate()
 
     def init_ui(self):
 
@@ -36,20 +37,21 @@ class Example(Gtk.Window):
 
     def on_draw(self, wid, cr):
 
-        dotxsep = self.get_size()[0] / self.generator.xsize
-        dotysep = self.get_size()[1] / self.generator.ysize
+        dotxsep = self.get_size()[0] / self.map.xsize
+        dotysep = self.get_size()[1] / self.map.ysize
 
-        for row in self.generator.cells.cells:
-            for cell in row:
+        for cell in self.map.cell_map:
+            cell.draw(cr, dotxsep, dotysep)
 
-                cr.set_source_rgb(cell.r, 0, 0)
-                cr.arc(cell.NW.x*dotxsep, cell.NW.y*dotysep, 1, 0, 2*math.pi)
-                cr.fill()
-                cr.arc(cell.NE.x*dotxsep, cell.NE.y*dotysep, 1, 0, 2*math.pi)
-                cr.fill()
-                cr.arc(cell.SW.x*dotxsep, cell.SW.y*dotysep, 1, 0, 2*math.pi)
-                cr.fill()
-                cr.arc(cell.SE.x*dotxsep, cell.SE.y*dotysep, 1, 0, 2*math.pi)
+        return
+
+        for row in self.map.point_map:
+            for p in row:
+                cr.arc(
+                    (p.x*dotxsep)+(dotxsep / 2),
+                    (p.y*dotysep) + (dotysep / 2),
+                    2, 0, 2*math.pi)
+                cr.set_source_rgb(0, 0, 0)
                 cr.fill()
 
 
@@ -57,7 +59,6 @@ def main():
 
     app = Example()
     Gtk.main()
-    print("test")
 
 
 if __name__ == "__main__":

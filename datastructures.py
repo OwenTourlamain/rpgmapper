@@ -1,4 +1,5 @@
 import random
+import math
 
 
 class point:
@@ -16,16 +17,16 @@ class point:
 
 class cell:
 
-    def __init__(self, NW, NE, SW, SE, index):
+    def __init__(self, NW, NE, SW, SE):
 
         self.NW = NW
         self.NE = NE
         self.SW = SW
         self.SE = SE
-        self.index = index
-        self.r = random.randint(0, 255)
-        self.g = random.randint(0, 255)
-        self.b = random.randint(0, 255)
+        #self.index = index
+        self.r = random.uniform(0.0, 1.0)
+        self.g = random.uniform(0.0, 1.0)
+        self.b = random.uniform(0.0, 1.0)
 
         self.center = point(
             ((self.NW.x + self.NE.x + self.SW.x + self.SE.x) / 4.0),
@@ -33,6 +34,22 @@ class cell:
 
     def __str__(self):
         return str(self.center)
+
+    def draw(self, cr, dotxsep, dotysep):
+
+        if self.r > 0.5:
+            cr.set_source_rgb(0, 1, 0)
+        else:
+            cr.set_source_rgb(0, 0, 1)
+        cr.move_to(self.NW.x*dotxsep, self.NW.y*dotysep)
+        cr.line_to(self.NE.x*dotxsep, self.NE.y*dotysep)
+        cr.line_to(self.SE.x*dotxsep, self.SE.y*dotysep)
+        cr.line_to(self.SW.x*dotxsep, self.SW.y*dotysep)
+        cr.fill()
+
+        #cr.arc(self.center.x*dotxsep, self.center.y*dotysep, 1, 0, 2*math.pi)
+        #cr.set_source_rgb(0, 0, 0)
+        #cr.fill()
 
 
 class cell_array:
@@ -45,7 +62,7 @@ class cell_array:
     def __init__(self, xsize, ysize):
         self.xsize = xsize
         self.ysize = ysize
-        jitter_mag = 0.4
+        jitter_mag = 0.0
 
         self.cells = [[0 for y in range(self.ysize)] for x in range(self.xsize)]
 
