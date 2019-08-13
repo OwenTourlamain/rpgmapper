@@ -40,8 +40,8 @@ class Example(Gtk.Window):
         dotxsep = self.get_size()[0] / self.map.xsize
         dotysep = self.get_size()[1] / self.map.ysize
 
-        for cell in self.map.cell_map:
-            cell.draw(cr, dotxsep, dotysep)
+        #for cell in self.map.cell_map:
+        #    cell.draw(cr, dotxsep, dotysep)
 
         return
 
