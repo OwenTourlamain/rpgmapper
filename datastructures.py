@@ -14,6 +14,12 @@ class point:
     def __add__(self, other):
         return point(self.x + other.x, self.y + other.y)
 
+class point3(point):
+
+    def __init__(self, x, y, height):
+        self.x = x
+        self.y = y
+        self.height = height
 
 class cell:
 
