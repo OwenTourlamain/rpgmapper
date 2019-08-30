@@ -27,12 +27,15 @@ class map:
         for x in range(self.xsize):
             row = []
             for y in range(self.ysize):
-                p = point3(x, y, 0)# + self.point_jitter(0.2)
+                p = point3(x, y, 0)
                 row.append(p)
             self.points.append(row)
 
     def add_heightmap(self):
-        pass
+        self.points[0][0].height = 1
+        self.points[0][self.ysize-1].height = 0.5
+        self.points[self.xsize-1][self.ysize-1].height = 0.25
+        self.points[self.xsize-1][0].height = 0.75
 
     def point_jitter(self, magnitude):
         x = random.uniform(magnitude * -1, magnitude)
