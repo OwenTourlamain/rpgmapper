@@ -1,0 +1,27 @@
+{
+  "name": "rpgmapper",
+  "version": "1.0.0",
+  "description": "A tool for generating and manipulating RPG maps",
+  "main": "main.js",
+  "scripts": {
+    "test": "test.js",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OwenTourlamain/rpgmapper.git"
+  },
+  "keywords": [
+    "rpg",
+    "mapper"
+  ],
+  "author": "Owen Tourlamain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OwenTourlamain/rpgmapper/issues"
+  },
+  "homepage": "https://github.com/OwenTourlamain/rpgmapper#readme",
+  "devDependencies": {
+    "electron": "^6.0.7"
+  }
+}
