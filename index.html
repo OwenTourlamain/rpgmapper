@@ -3,11 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div id=nav>
+      <button>click</button>
+    </div>
+    <div id=canvas-div>
+      <canvas id=main-canvas>
+      </canvas>
+    </div>
+    <script>
+      window.onload = window.onresize = function() {
+
+        var canvas = document.getElementById('main-canvas');
+        var canvasdiv = document.getElementById('canvas-div');
+        var properties = window.getComputedStyle(canvasdiv, null);
+        canvas.width = properties.width.slice(0, -2);
+        canvas.height = properties.height.slice(0, -2);
+      }
+    </script>
   </body>
 </html>
