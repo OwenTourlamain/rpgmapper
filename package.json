@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/OwenTourlamain/rpgmapper#readme",
   "devDependencies": {
-    "electron": "^6.0.7"
+    "electron": "^7.2.4"
   },
   "dependencies": {
     "responsive-nav": "^1.0.39"
